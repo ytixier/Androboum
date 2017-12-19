@@ -5,7 +5,10 @@
     <string name="descri_imageacc">bomberman</string>
     <string name="demarbouton">DEMARRER</string>
     <string name="auteur">\@Tixier_Yann</string>
+     <string name="action_logout">Deconnexion</string>
+    <string name="action_settings">Option</string>
 
     <string name="facebook_application_id" translatable="false">1809914232370472</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb1809914232370472</string>
+    <string name="mail">Email</string>
 </resources>

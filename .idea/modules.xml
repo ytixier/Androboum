@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroBoum.iml" filepath="$PROJECT_DIR$/AndroBoum.iml" />
+      <module fileurl="file://C:\Android-Projets\Androboum\AndroBoum.iml" filepath="C:\Android-Projets\Androboum\AndroBoum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Androboum.iml" filepath="$PROJECT_DIR$/Androboum.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Android-Projets\Androboum\app\app.iml" filepath="C:\Android-Projets\Androboum\app\app.iml" />
     </modules>
   </component>
 </project>

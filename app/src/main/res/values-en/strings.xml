@@ -2,5 +2,8 @@
 <resources>
     <string name="title">The bombing application</string>
     <string name="demarbouton">START</string>
+    <string name="action_logout">Disconnection</string>
+    <string name="action_settings">Option</string>
+
 
 </resources>
