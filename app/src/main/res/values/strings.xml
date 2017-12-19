@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AndroBoum</string>
+    <string name="title">Une appli qui explose!</string>
+    <string name="title2">Badaboum!</string>
+    <string name="descri_imageacc">bomberman</string>
+    <string name="demarbouton">DEMARRER</string>
+    <string name="auteur">\@Tixier_Yann</string>
+
+    <string name="facebook_application_id" translatable="false">1809914232370472</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1809914232370472</string>
+</resources>
