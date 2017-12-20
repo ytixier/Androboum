@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,9 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,6 +41,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 public class UserActivity extends AppCompatActivity {
+    private Profil user = new Profil();
     private static final int SELECT_PICTURE = 124;
     //  on choisit une valeur arbitraire pour représenter la connexion
     private static final int RC_SIGN_IN = 123;
@@ -56,6 +61,9 @@ public class UserActivity extends AppCompatActivity {
             Log.v("AndroBoum", "je suis déjà connecté sous l'email :" + auth.getCurrentUser().getEmail());
             TextView textView = (TextView) findViewById(R.id.email);
             textView.setText(auth.getCurrentUser().getEmail());
+            downloadImage();
+            setUser();
+            updateProfil(user);
         } else {
 // on lance l'activité qui gère l'écran de connexion en
 //la paramétrant avec les providers googlet et facebook.
@@ -68,6 +76,7 @@ public class UserActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.imageProfil);
 
         imageView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 //Changer d'image
@@ -80,12 +89,24 @@ public class UserActivity extends AppCompatActivity {
                 Intent chooserIntent = Intent.createChooser(intent, "Image Chooser");
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[]{captureIntent});
                 startActivityForResult(chooserIntent, SELECT_PICTURE);
-                uploadImage();
 
             }
         });
 
+        Button bouton = (Button) findViewById(R.id.blist);
+        bouton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lancerList();
+            }
+        });
     }
+
+    public void lancerList() {
+        Intent intent = new Intent(this, UserListActivity.class);
+        startActivity(intent);
+    }
+
 
 
     // cette méthode est appelée quand l'appel StartActivityForResult est terminé
@@ -102,6 +123,9 @@ public class UserActivity extends AppCompatActivity {
                 Log.v("AndroBoum", "je me suis connecté et mon email est :" + response.getEmail());
                 TextView textView = (TextView) findViewById(R.id.email);
                 textView.setText(response.getEmail());
+                downloadImage();
+                setUser();
+                updateProfil(user);
                 return;
 
             } else {
@@ -146,11 +170,10 @@ public class UserActivity extends AppCompatActivity {
                     Bitmap finalbitmap = Bitmap.createScaledBitmap(selectedImage, 500, (selectedImage.getHeight() * 500) / selectedImage.getWidth(),
                             false);
                     imageView.setImageBitmap(finalbitmap);
-                    downloadImage();
+                    uploadImage();
                 } catch (Exception e) {
                     Log.v("AndroBoum", e.getMessage());
                 }
-                ;
             }
         }
     }
@@ -241,4 +264,37 @@ public class UserActivity extends AppCompatActivity {
                 });
     }
 
+    private void setUser() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser fuser = auth.getCurrentUser();
+        if (fuser != null) {
+            user.setUid(fuser.getUid());
+            user.setEmail(fuser.getEmail());
+            user.setConnected(true);
+        }
+    }
+
+    private void updateProfil(Profil user) {DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("Users").child(user.getUid());
+        ref.child("connected").setValue(true);
+        ref.child("email").setValue(user.getEmail());
+        ref.child("uid").setValue(user.getUid());
+    }
+
+    @Override
+    protected void onDestroy() {user.setConnected(false);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth != null) {
+            FirebaseUser fuser = auth.getCurrentUser();
+            if (fuser != null) {
+                final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference mreference = mDatabase.getReference().child("Users").child(fuser.getUid());
+                boolean connectStatus = false;
+                mreference.child("connected").setValue(connectStatus);
+            }
+        }
+// on déconnecte l'utilisateur
+        AuthUI.getInstance().signOut(this);
+        super.onDestroy();
+    }
 }

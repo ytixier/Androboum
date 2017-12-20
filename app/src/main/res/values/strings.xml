@@ -5,7 +5,7 @@
     <string name="descri_imageacc">bomberman</string>
     <string name="demarbouton">DEMARRER</string>
     <string name="auteur">\@Tixier_Yann</string>
-     <string name="action_logout">Deconnexion</string>
+    <string name="action_logout">Deconnexion</string>
     <string name="action_settings">Option</string>
 
     <string name="facebook_application_id" translatable="false">1809914232370472</string>
@@ -13,4 +13,8 @@
     <string name="profil_icon">Votre image de profil</string>
     <string name="mail">Email</string>
     <string name="imageUploaded">Image téléchargée</string>
+    <string name="List_users">Liste des utilisateurs</string>
+    <string name="profil_mail">themail</string>
+    <string name="miniAvatar_descri">Mini Avatar du profil</string>
+    <string name="connecticon_descrip">Connecté</string>
 </resources>
