@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.example.ytixier.androboum"
         minSdkVersion 23
@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     implementation 'com.google.firebase:firebase-auth:11.4.0'
+
     implementation 'com.google.firebase:firebase-storage:11.4.0'
     implementation 'com.google.firebase:firebase-database:11.4.0'
     implementation 'com.google.android.gms:play-services-location:11.4.0'
@@ -43,6 +44,9 @@ dependencies {
     implementation "com.android.support:palette-v7:27.0.2"
 
     implementation 'com.facebook.android:facebook-android-sdk:4.25.0'
+
+    compile 'com.google.firebase:firebase-storage:11.0.1'
+    compile 'com.firebaseui:firebase-ui-storage:2.0.1'
 
     testCompile 'junit:junit:4.12'
 }
